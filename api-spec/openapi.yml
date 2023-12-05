@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: 'Multiplayer chess api'
+  description: 'Allows you to play chess using an api which for example can be used in an html js css client.'
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/
+    description: 'Local API'
+paths:
+  /api/hello-world:
+    get:
+      description: simple endpoint to test deployment
+      operationId: helloWorld
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/helloWorld'
+
+components:
+  schemas:
+    helloWorld:
+      type: object
+      properties:
+        response:
+          type: string
+          example: "Hello World!"
+    uuidObject:
+      type: object
+      properties:
+        uuid:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
