@@ -31,6 +31,8 @@ dependencies {
     testImplementation "io.vertx:vertx-junit5:$vertxVersion"
     testImplementation "io.vertx:vertx-web-client:$vertxVersion"
 
+    implementation 'org.slf4j:slf4j-simple:1.7.33'
+    implementation 'org.slf4j:slf4j-nop:1.7.21'
     implementation "io.vertx:vertx-core:$vertxVersion"
     implementation "io.vertx:vertx-web:$vertxVersion"
     implementation "io.vertx:vertx-web-api-contract:$vertxVersion"
@@ -64,6 +66,6 @@ run {
             "vertx.logger-delegate-factory-class-name",
             "io.vertx.core.logging.JULLogDelegateFactory"
     )
-    args = ['run', 'be.howest.ti.adria.web.WebServer', "--launcher-class=$mainClassName",
+    args = ['run', 'nymil.chess.web.WebServer', "--launcher-class=$mainClassName",
             "-Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.JULLogDelegateFactory"]
 }
