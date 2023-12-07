@@ -4,10 +4,12 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CorsHandler;
-import io.vertx.ext.web.openapi.Operation;
 import io.vertx.ext.web.openapi.RouterBuilder;
+import nymil.chess.logic.controller.ChessController;
+import nymil.chess.logic.controller.ChessControllerImpl;
 import nymil.chess.logic.exeptions.ChessExeption;
 import nymil.chess.web.exceptions.InvalidRequestException;
+import nymil.chess.web.requests.CreateGameRequest;
 import nymil.chess.web.requests.HelloWordRequest;
 import nymil.chess.web.requests.Response;
 
@@ -17,6 +19,13 @@ import java.util.logging.Logger;
 
 public class ChessOpenApiBridge {
     private static final Logger LOGGER = Logger.getLogger(ChessOpenApiBridge.class.getName());
+    private final ChessController controller;
+    public ChessOpenApiBridge(ChessController controller) {
+        this.controller = controller;
+    }
+    public ChessOpenApiBridge() {
+        this(new ChessControllerImpl());
+    }
     public Router buildRouter(RouterBuilder routerBuilder) {
         LOGGER.log(Level.INFO, "Installing cors handlers");
         routerBuilder.rootHandler(createCorsHandler());
@@ -28,11 +37,21 @@ public class ChessOpenApiBridge {
         routerBuilder.operation("helloWorld")
                 .handler(ctx -> sendHelloWorld(new HelloWordRequest(ctx)));
 
+        LOGGER.log(Level.INFO, "Setting up handler for: createGame");
+        routerBuilder.operation("joinGame")
+                .handler(ctx -> createGame(new CreateGameRequest(ctx)));
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
 
     private void sendHelloWorld(HelloWordRequest request) {
+        request.sendResponse();
+    }
+
+    private void createGame(CreateGameRequest request) {
+        String generatedUuid = controller.createGame(request.getUserName());
+        request.setUuid(generatedUuid);
         request.sendResponse();
     }
 
