@@ -8,7 +8,7 @@ public abstract class Request {
     final RoutingContext ctx;
     final RequestParameters params;
 
-    Request(RoutingContext ctx) {
+    public Request(RoutingContext ctx) {
         this.ctx = ctx;
         this.params = ctx.get(ValidationHandler.REQUEST_CONTEXT_KEY);
     }
