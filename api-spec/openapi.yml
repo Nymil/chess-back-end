@@ -18,6 +18,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/helloWorld'
+  /api/games/create:
+    post:
+      description: create a game which can be joined by another player
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userNameObject'
+      responses:
+        '201':
+          description: game created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uuidObject'
+  /api/games/join/{gameId}:
+    put:
+      description: join an already existing game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userNameObject'
+      responses:
+        '201':
+          description: game joined
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uuidObject'
 
 components:
   schemas:
@@ -33,3 +65,9 @@ components:
         uuid:
           type: string
           example: "550e8400-e29b-41d4-a716-446655440000"
+    userNameObject:
+      type: object
+      properties:
+        userName:
+          type: string
+          example: "Alice"
