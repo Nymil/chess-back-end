@@ -37,6 +37,13 @@ paths:
   /api/games/join/{gameId}:
     put:
       description: join an already existing game
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+          example: 3
       requestBody:
         required: true
         content:
