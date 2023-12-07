@@ -9,6 +9,7 @@ import java.util.Objects;
 public class BoardLocation {
     private final int col; // zero based
     private final int row; // zero based
+    private final String locationString;
     public final static char[] possibleLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
 
     @JsonCreator
@@ -21,6 +22,7 @@ public class BoardLocation {
 
         this.col = colFromLocationString(locationString);
         this.row = rowFromLocationString(locationString);
+        this.locationString = locationString;
     }
 
     private int colFromLocationString(String locationString) {
@@ -43,6 +45,11 @@ public class BoardLocation {
 
         int number = locationString.charAt(1);
         return number >= 1 && number <= 8;
+    }
+
+    @Override
+    public String toString() {
+        return locationString;
     }
 
     @Override
