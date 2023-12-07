@@ -21,6 +21,7 @@ paths:
   /api/games/create:
     post:
       description: create a game which can be joined by another player
+      operationId: createGame
       requestBody:
         required: true
         content:
@@ -37,6 +38,7 @@ paths:
   /api/games/join/{gameId}:
     put:
       description: join an already existing game
+      operationId: joinGame
       parameters:
         - in: path
           name: gameId
