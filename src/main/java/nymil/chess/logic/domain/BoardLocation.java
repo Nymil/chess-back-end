@@ -24,7 +24,7 @@ public class BoardLocation {
     }
 
     private int colFromLocationString(String locationString) {
-        return Arrays.binarySearch(BoardLocation.possibleLetters, locationString.charAt(0));
+        return Arrays.binarySearch(possibleLetters, locationString.charAt(0));
     }
 
     private int rowFromLocationString(String locationString) {
@@ -37,7 +37,7 @@ public class BoardLocation {
         }
 
         char letter = locationString.charAt(0);
-        if (Arrays.binarySearch(BoardLocation.possibleLetters, letter) < 0) {
+        if (Arrays.binarySearch(possibleLetters, letter) < 0) {
             return false;
         }
 

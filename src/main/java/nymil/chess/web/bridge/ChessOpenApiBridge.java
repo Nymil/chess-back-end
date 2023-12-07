@@ -6,6 +6,7 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.openapi.Operation;
 import io.vertx.ext.web.openapi.RouterBuilder;
+import nymil.chess.logic.exeptions.ChessExeption;
 import nymil.chess.web.exceptions.InvalidRequestException;
 import nymil.chess.web.requests.HelloWordRequest;
 import nymil.chess.web.requests.Response;
@@ -45,6 +46,8 @@ public class ChessOpenApiBridge {
         if (cause instanceof IllegalArgumentException) {
             code = 400;
         } else if (cause instanceof InvalidRequestException) {
+            code = 400;
+        } else if (cause instanceof ChessExeption) {
             code = 400;
         } else {
             LOGGER.log(Level.WARNING, "Failed request", cause);
