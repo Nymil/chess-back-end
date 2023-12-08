@@ -50,6 +50,10 @@ public class ChessOpenApiBridge {
         routerBuilder.operation("getGames")
                 .handler(ctx -> getGames(new GetGamesRequest(ctx)));
 
+        LOGGER.log(Level.INFO, "Setting up handler for: getGame");
+        routerBuilder.operation("getGame")
+                .handler(ctx -> getGame(new GetGameRequest(ctx)));
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -61,6 +65,21 @@ public class ChessOpenApiBridge {
     private void getGames(GetGamesRequest request) {
         request.setGames(controller.getGames());
         request.sendResponse();
+    }
+
+    private void getGame(GetGameRequest request) {
+        ChessGame game = controller.getGameById(request.getGameId());
+
+        if (!hasAccessToDetailsOfGame(game, request.getUuid())) {
+            throw new IllegalArgumentException("You dont have access to the game details as you are not a part of the game");
+        }
+
+        request.setGameData(game);
+        request.sendResponse();
+    }
+
+    private boolean hasAccessToDetailsOfGame(ChessGame game, String uuid) {
+        return Objects.equals(game.getPlayerWhite().getUuid(), uuid) || Objects.equals(game.getPlayerBlack().getUuid(), uuid);
     }
 
     private void createGame(CreateGameRequest request) {
@@ -86,6 +105,8 @@ public class ChessOpenApiBridge {
         // custom exception mapping
         LOGGER.log(Level.INFO, "Failed request", cause);
         if (cause instanceof IllegalArgumentException) {
+            code = 400;
+        } else if (cause instanceof IllegalStateException) {
             code = 400;
         } else if (cause instanceof InvalidRequestException) {
             code = 400;

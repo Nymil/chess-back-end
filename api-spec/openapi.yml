@@ -75,6 +75,31 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/simpleGameObject"
+  /api/games/{gameId}:
+    get:
+      description: get details of a single game
+      operationId: getGame
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+          example: 3
+        - in: header
+          name: uuid
+          required: true
+          description: required to validate whether the user has access to the information of the game
+          schema:
+            type: string
+          example: 39fd82fe-8a07-4cef-b86e-a183730f1a51
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/gameDetails"
 
 components:
   schemas:
@@ -108,3 +133,30 @@ components:
         started:
           type: boolean
           example: true
+    gameDetails:
+      type: object
+      properties:
+        gameId:
+          type: integer
+          example: 2
+        currentPlayer:
+          type: string
+          example: "Alice"
+        started:
+          type: boolean
+          example: false
+        playerWhite:
+          type: string
+          example: "Alice"
+        playerBlack:
+          type: string
+          example: "bob"
+        board:
+          type: object
+          description: object with keys which are a location (like "a2") and values which are the pieces on that location"
+          example: {a1: white knight, b2: black queen}
+        capturedPieces:
+          type: array
+          items:
+            type: string
+            example: black rook

@@ -13,6 +13,10 @@ public class ChessBoard {
         this.state = getStartingState();
     }
 
+    public Map<BoardLocation, ChessPiece> getState() {
+        return state;
+    }
+
     private Map<BoardLocation, ChessPiece> getStartingState() {
         Map<BoardLocation, ChessPiece> startState = new HashMap<>();
 

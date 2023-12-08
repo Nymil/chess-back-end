@@ -2,18 +2,24 @@ package nymil.chess.logic.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.vertx.codegen.annotations.Nullable;
+import nymil.chess.logic.domain.chesspieces.ChessPiece;
 import nymil.chess.logic.exeptions.ChessExeption;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ChessGame {
     public static int NEXT_GAME_ID = 1;
     private final int gameId;
     private final Player playerWhite;
-    private Player playerBlack;
+    private Player playerBlack = null;
+    private Player currentPlayer = null;
     private final ChessBoard board = new ChessBoard();
     private boolean started = false;
     private Player winner = null;
+    private List<ChessPiece> capturedPieces = new ArrayList<>();
 
     @JsonCreator
     public ChessGame(
@@ -26,6 +32,10 @@ public class ChessGame {
     public Player getPlayerWhite() {
         return playerWhite;
     }
+    @Nullable
+    public Player getPlayerBlack() {
+        return playerBlack;
+    }
 
     public int getId() {
         return gameId;
@@ -37,6 +47,19 @@ public class ChessGame {
 
     public String getName() {
         return String.format("%s's game", playerWhite.getUserName());
+    }
+
+    public ChessBoard getBoard() {
+        return board;
+    }
+
+    @Nullable
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public List<ChessPiece> getCapturedPieces() {
+        return capturedPieces;
     }
 
     public void joinGame(Player joiningPlayer) {
@@ -55,5 +78,6 @@ public class ChessGame {
 
         this.playerBlack = joiningPlayer;
         this.started = true;
+        this.currentPlayer = playerWhite;
     }
 }
