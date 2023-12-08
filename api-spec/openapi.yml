@@ -59,6 +59,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/uuidObject'
+  /api/games:
+    get:
+      description: get all games
+      operationId: getGames
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  games:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/simpleGameObject"
 
 components:
   schemas:
@@ -80,3 +96,15 @@ components:
         userName:
           type: string
           example: "Alice"
+    simpleGameObject:
+      type: object
+      properties:
+        gameId:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: Alice's game
+        started:
+          type: boolean
+          example: true

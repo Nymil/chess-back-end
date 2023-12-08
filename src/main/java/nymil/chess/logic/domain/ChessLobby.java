@@ -26,4 +26,8 @@ public class ChessLobby {
 
         return gameWithId;
     }
+
+    public List<ChessGame> getGames() {
+        return new ArrayList<>(games); // new arraylist so the original cant get updated outside of lobby class
+    }
 }

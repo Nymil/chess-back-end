@@ -12,10 +12,7 @@ import nymil.chess.logic.domain.ChessLobby;
 import nymil.chess.logic.domain.Player;
 import nymil.chess.logic.exeptions.ChessExeption;
 import nymil.chess.web.exceptions.InvalidRequestException;
-import nymil.chess.web.requests.CreateGameRequest;
-import nymil.chess.web.requests.HelloWordRequest;
-import nymil.chess.web.requests.JoinGameRequest;
-import nymil.chess.web.requests.Response;
+import nymil.chess.web.requests.*;
 
 import java.util.Objects;
 import java.util.logging.Level;
@@ -49,11 +46,20 @@ public class ChessOpenApiBridge {
         routerBuilder.operation("joinGame")
                 .handler(ctx -> joinGame(new JoinGameRequest(ctx)));
 
+        LOGGER.log(Level.INFO, "Setting up handler for: getGames");
+        routerBuilder.operation("getGames")
+                .handler(ctx -> getGames(new GetGamesRequest(ctx)));
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
 
     private void sendHelloWorld(HelloWordRequest request) {
+        request.sendResponse();
+    }
+
+    private void getGames(GetGamesRequest request) {
+        request.setGames(controller.getGames());
         request.sendResponse();
     }
 

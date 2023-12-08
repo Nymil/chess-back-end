@@ -31,6 +31,14 @@ public class ChessGame {
         return gameId;
     }
 
+    public boolean hasStarted() {
+        return started;
+    }
+
+    public String getName() {
+        return String.format("%s's game", playerWhite.getUserName());
+    }
+
     public void joinGame(Player joiningPlayer) {
         if (Objects.equals(joiningPlayer.getUserName(), playerWhite.getUserName())) {
             throw new ChessExeption("Cant join a game of player with the same name");
