@@ -17,4 +17,9 @@ public enum ChessPieceColor {
 
         throw new IllegalArgumentException("No such chess piece color");
     }
+
+    @Override
+    public String toString() {
+        return this.color;
+    }
 }

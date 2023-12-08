@@ -11,7 +11,7 @@ public class ChessGame {
     private final int gameId;
     private final Player playerWhite;
     private Player playerBlack;
-    private final ChessBoard board;
+    private final ChessBoard board = new ChessBoard();
     private boolean started = false;
     private Player winner = null;
 
@@ -21,7 +21,6 @@ public class ChessGame {
     ) {
         this.playerWhite = new Player(name);
         this.gameId = NEXT_GAME_ID++;
-        this.board = new ChessBoard();
     }
 
     public Player getPlayerWhite() {

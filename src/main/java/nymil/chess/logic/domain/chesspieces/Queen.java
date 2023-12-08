@@ -16,4 +16,9 @@ public class Queen extends ChessPiece {
     public Set<Move> getPossibleMoves(Map<ChessPiece, BoardLocation> currentBoardState) {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return color + " queen";
+    }
 }
