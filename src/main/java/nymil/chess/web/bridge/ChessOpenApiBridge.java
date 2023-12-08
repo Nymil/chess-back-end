@@ -7,10 +7,14 @@ import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.openapi.RouterBuilder;
 import nymil.chess.logic.controller.ChessController;
 import nymil.chess.logic.controller.ChessControllerImpl;
+import nymil.chess.logic.domain.ChessGame;
+import nymil.chess.logic.domain.ChessLobby;
+import nymil.chess.logic.domain.Player;
 import nymil.chess.logic.exeptions.ChessExeption;
 import nymil.chess.web.exceptions.InvalidRequestException;
 import nymil.chess.web.requests.CreateGameRequest;
 import nymil.chess.web.requests.HelloWordRequest;
+import nymil.chess.web.requests.JoinGameRequest;
 import nymil.chess.web.requests.Response;
 
 import java.util.Objects;
@@ -41,6 +45,10 @@ public class ChessOpenApiBridge {
         routerBuilder.operation("createGame")
                 .handler(ctx -> createGame(new CreateGameRequest(ctx)));
 
+        LOGGER.log(Level.INFO, "Setting up handler for: joinGame");
+        routerBuilder.operation("joinGame")
+                .handler(ctx -> joinGame(new JoinGameRequest(ctx)));
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
@@ -50,8 +58,17 @@ public class ChessOpenApiBridge {
     }
 
     private void createGame(CreateGameRequest request) {
-        String generatedUuid = controller.addGame(request.getCreatedGame());
-        request.setUuid(generatedUuid);
+        ChessGame game = request.getCreatedGame();
+        controller.addGame(game);
+        request.setUuid(game.getPlayerWhite().getUuid());
+        request.sendResponse();
+    }
+
+    private void joinGame(JoinGameRequest request) {
+        Player createdPlayer = request.getPlayer();
+        int gameId = request.getGameId();
+        controller.joinGame(gameId, createdPlayer);
+        request.setUuid(createdPlayer.getUuid());
         request.sendResponse();
     }
 

@@ -35,7 +35,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/uuidObject'
-  /api/games/join/{gameId}:
+  /api/games/{gameId}/join:
     put:
       description: join an already existing game
       operationId: joinGame
