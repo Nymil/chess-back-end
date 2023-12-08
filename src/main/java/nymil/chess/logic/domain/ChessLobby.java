@@ -1,8 +1,14 @@
 package nymil.chess.logic.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class ChessLobby {
-    Set<ChessGame> games = new HashSet<>();
+    List<ChessGame> games = new ArrayList<>();
+
+    public String addGame(ChessGame gameToAdd) {
+        games.add(gameToAdd);
+        return gameToAdd.getPlayerWhite().getUuid();
+    }
 }

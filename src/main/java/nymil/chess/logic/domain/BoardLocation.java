@@ -30,7 +30,7 @@ public class BoardLocation {
     }
 
     private int rowFromLocationString(String locationString) {
-        return ((int) locationString.charAt(1)) - 1;
+        return Integer.parseInt(locationString.substring(1)) - 1;
     }
 
     private boolean validLocationString(String locationString) {
@@ -43,7 +43,7 @@ public class BoardLocation {
             return false;
         }
 
-        int number = locationString.charAt(1);
+        int number = Integer.parseInt(locationString.substring(1));
         return number >= 1 && number <= 8;
     }
 

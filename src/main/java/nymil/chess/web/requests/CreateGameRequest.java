@@ -2,6 +2,7 @@ package nymil.chess.web.requests;
 
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
+import nymil.chess.logic.domain.ChessGame;
 
 public class CreateGameRequest extends Request{
 
@@ -13,8 +14,8 @@ public class CreateGameRequest extends Request{
     public void setUuid(String uuid) {
         returnObject.put("uuid", uuid);
     }
-    public String getUserName() {
-        return params.body().getJsonObject().getString("userName");
+    public ChessGame getCreatedGame() {
+        return params.body().getJsonObject().mapTo(ChessGame.class);
     }
 
     @Override

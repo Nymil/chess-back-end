@@ -11,16 +11,21 @@ public class ChessGame {
     private final int gameId;
     private final Player playerWhite;
     private Player playerBlack;
-    private final ChessBoard board = new ChessBoard();
+    private final ChessBoard board;
     private boolean started = false;
     private Player winner = null;
 
     @JsonCreator
     public ChessGame(
-            @JsonProperty("playerName") String name
+            @JsonProperty("userName") String name
     ) {
         this.playerWhite = new Player(name);
         this.gameId = NEXT_GAME_ID++;
+        this.board = new ChessBoard();
+    }
+
+    public Player getPlayerWhite() {
+        return playerWhite;
     }
 
     public void joinGame(Player joiningPlayer) {

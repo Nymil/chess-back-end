@@ -38,7 +38,7 @@ public class ChessOpenApiBridge {
                 .handler(ctx -> sendHelloWorld(new HelloWordRequest(ctx)));
 
         LOGGER.log(Level.INFO, "Setting up handler for: createGame");
-        routerBuilder.operation("joinGame")
+        routerBuilder.operation("createGame")
                 .handler(ctx -> createGame(new CreateGameRequest(ctx)));
 
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
@@ -50,7 +50,7 @@ public class ChessOpenApiBridge {
     }
 
     private void createGame(CreateGameRequest request) {
-        String generatedUuid = controller.createGame(request.getUserName());
+        String generatedUuid = controller.addGame(request.getCreatedGame());
         request.setUuid(generatedUuid);
         request.sendResponse();
     }
