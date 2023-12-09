@@ -74,7 +74,7 @@ paths:
                   games:
                     type: array
                     items:
-                      $ref: "#/components/schemas/simpleGameObject"
+                      $ref: '#/components/schemas/simpleGameObject'
   /api/games/{gameId}:
     get:
       description: get details of a single game
@@ -92,14 +92,51 @@ paths:
           description: required to validate whether the user has access to the information of the game
           schema:
             type: string
-          example: 39fd82fe-8a07-4cef-b86e-a183730f1a51
+          example: "39fd82fe-8a07-4cef-b86e-a183730f1a51"
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/gameDetails"
+                $ref: '#/components/schemas/gameDetails'
+  /api/games/{gameId}/moves:
+    get:
+      description: get the possible moves a chesspiece on a givven position can take
+      operationId: getMoves
+      parameters:
+        - in: path
+          name: gameId
+          required: true
+          schema:
+            type: integer
+          example: 3
+        - in: header
+          name: uuid
+          required: true
+          description: required to validate whether the user has access to the information of the game
+          schema:
+            type: string
+          example: "39fd82fe-8a07-4cef-b86e-a183730f1a51"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/location'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  possibleMoves:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/move'
+
 
 components:
   schemas:
@@ -129,7 +166,7 @@ components:
           example: 3
         name:
           type: string
-          example: Alice's game
+          example: Alice"s game
         started:
           type: boolean
           example: true
@@ -160,3 +197,18 @@ components:
           items:
             type: string
             example: black rook
+    move:
+      type: object
+      properties:
+        origin:
+          type: string
+          example: "a1"
+        destination:
+          type: string
+          example: "a2"
+    location:
+      type: object
+      properties:
+        location:
+          type: string
+          example: "h5"
