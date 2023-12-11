@@ -2,6 +2,7 @@ package nymil.chess.logic.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nymil.chess.logic.exeptions.ChessExeption;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -17,12 +18,27 @@ public class BoardLocation {
             @JsonProperty("location") String locationString
     ) {
         if (!validLocationString(locationString)) {
-            throw new IllegalArgumentException("invalid location");
+            throw new ChessExeption("invalid location");
         }
 
         this.col = colFromLocationString(locationString);
         this.row = rowFromLocationString(locationString);
         this.locationString = locationString;
+    }
+
+    public BoardLocation(int col, int row) {
+        if (col < 0 || col > 7 || row < 0 || row > 7) {
+            throw new ChessExeption("invalid location");
+        }
+
+        this.col = col;
+        this.row = row;
+
+        this.locationString = coordsToString(col, row);
+    }
+
+    private String coordsToString(int col, int row) {
+        return String.format("%c%d", possibleLetters[col], row + 1);
     }
 
     private int colFromLocationString(String locationString) {
