@@ -1,12 +1,15 @@
 package nymil.chess.logic.domain.chesspieces;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import nymil.chess.logic.domain.BoardLocation;
 import nymil.chess.logic.domain.Move;
+import nymil.chess.logic.util.toStringSerializer;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+@JsonSerialize(using = toStringSerializer.class)
 public abstract class ChessPiece {
     protected final ChessPieceColor color;
     protected boolean hasMoved = false;

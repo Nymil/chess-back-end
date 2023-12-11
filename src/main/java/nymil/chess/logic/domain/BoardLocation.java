@@ -2,11 +2,14 @@ package nymil.chess.logic.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import nymil.chess.logic.exeptions.ChessExeption;
+import nymil.chess.logic.util.toStringSerializer;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+@JsonSerialize(using = toStringSerializer.class)
 public class BoardLocation {
     private final int col; // zero based
     private final int row; // zero based

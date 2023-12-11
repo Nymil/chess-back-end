@@ -24,22 +24,12 @@ public class GetGameRequest extends Request {
                 .put("currentPlayer", Objects.isNull(game.getCurrentPlayer()) ? null : game.getCurrentPlayer().getUserName())
                 .put("playerWhite", game.getPlayerWhite().getUserName())
                 .put("playerBlack", Objects.isNull(game.getPlayerBlack()) ? null : game.getPlayerBlack().getUserName())
-                .put("board", toReadableMap(game.getBoard().getState()))
+                .put("board", game.getBoard().getState())
                 .put("capturedPieces", game.getCapturedPieces());
     }
 
     public int getGameId() {
         return params.pathParameter(SPEC_GAME_ID).getInteger();
-    }
-
-    private Map<BoardLocation, String> toReadableMap(Map<BoardLocation, ChessPiece> boardState) {
-        Map<BoardLocation, String> readableMap = new HashMap<>();
-
-        for (Map.Entry<BoardLocation, ChessPiece> entry : boardState.entrySet()) {
-            readableMap.put(entry.getKey(), entry.getValue().toString());
-        }
-
-        return readableMap;
     }
 
     public String getUuid() {
