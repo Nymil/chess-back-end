@@ -3,6 +3,7 @@ package nymil.chess.logic.domain.chesspieces;
 import nymil.chess.logic.domain.BoardLocation;
 import nymil.chess.logic.domain.Move;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public Set<Move> getPossibleMoves(Map<ChessPiece, BoardLocation> currentBoardState) {
+    public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) {
         return null;
     }
 
