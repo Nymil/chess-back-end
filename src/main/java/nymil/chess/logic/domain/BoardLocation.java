@@ -63,6 +63,14 @@ public class BoardLocation {
         return number >= 1 && number <= 8;
     }
 
+    public int getCol() {
+        return col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
     @Override
     public String toString() {
         return locationString;
