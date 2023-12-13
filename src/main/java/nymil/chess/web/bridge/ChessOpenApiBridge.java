@@ -7,14 +7,13 @@ import io.vertx.ext.web.handler.CorsHandler;
 import io.vertx.ext.web.openapi.RouterBuilder;
 import nymil.chess.logic.controller.ChessController;
 import nymil.chess.logic.controller.ChessControllerImpl;
-import nymil.chess.logic.domain.ChessGame;
-import nymil.chess.logic.domain.ChessLobby;
-import nymil.chess.logic.domain.Player;
+import nymil.chess.logic.domain.*;
 import nymil.chess.logic.exeptions.ChessExeption;
 import nymil.chess.web.exceptions.InvalidRequestException;
 import nymil.chess.web.requests.*;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,11 +53,28 @@ public class ChessOpenApiBridge {
         routerBuilder.operation("getGame")
                 .handler(ctx -> getGame(new GetGameRequest(ctx)));
 
+        LOGGER.log(Level.INFO, "Setting up handler for: getMoves");
+        routerBuilder.operation("getMoves")
+                .handler(ctx -> getMoves(new GetMovesRequest(ctx)));
+
         LOGGER.log(Level.INFO, "All handlers are installed, creating router.");
         return routerBuilder.createRouter();
     }
 
     private void sendHelloWorld(HelloWordRequest request) {
+        request.sendResponse();
+    }
+
+    private void getMoves(GetMovesRequest request) {
+        ChessGame game = controller.getGameById(request.getGameId());
+
+        if (!hasAccessToDetailsOfGame(game, request.getUuid())) {
+            throw new IllegalArgumentException("You dont have access to the game details as you are not a part of the game");
+        }
+
+        BoardLocation requestLocation = request.getLocation();
+        Set<Move> possibleMoves = controller.getMoves(requestLocation, game);
+        request.setPossibleMoves(possibleMoves);
         request.sendResponse();
     }
 
