@@ -2,6 +2,7 @@ package nymil.chess.logic.domain.chesspieces;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import nymil.chess.logic.domain.BoardLocation;
+import nymil.chess.logic.domain.ChessBoard;
 import nymil.chess.logic.domain.Move;
 import nymil.chess.logic.util.toStringSerializer;
 
@@ -13,9 +14,11 @@ import java.util.Set;
 public abstract class ChessPiece {
     protected final ChessPieceColor color;
     protected boolean hasMoved = false;
+    protected ChessBoard board;
 
-    public ChessPiece(String color) {
+    public ChessPiece(String color, ChessBoard board) {
         this.color = ChessPieceColor.fromString(color);
+        this.board = board; // every piece is part of a board
     }
 
     public abstract Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState);

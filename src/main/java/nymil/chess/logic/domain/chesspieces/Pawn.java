@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.util.Converter;
 import io.vertx.core.json.JsonObject;
 import nymil.chess.logic.domain.BoardLocation;
+import nymil.chess.logic.domain.ChessBoard;
 import nymil.chess.logic.domain.Move;
 
 import java.lang.annotation.Annotation;
@@ -13,14 +14,17 @@ import java.util.Map;
 import java.util.Set;
 
 public class Pawn extends ChessPiece {
-    public Pawn(String color) {
-        super(color);
+    private int direction;
+    public Pawn(String color, ChessBoard board) {
+        super(color, board);
+        this.direction = this.color == ChessPieceColor.WHITE ? 1 : -1;
     }
 
     @Override
-    public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) { // TODO: implement en passant
+    public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) {
         Set<Move> possibleMoves = new HashSet<>();
 
+        int steps = this.hasMoved ? 1 : 2;
 
 
         return possibleMoves;

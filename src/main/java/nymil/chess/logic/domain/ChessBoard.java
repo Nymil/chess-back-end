@@ -21,35 +21,35 @@ public class ChessBoard {
 
         // placing pawns
         for (char colLetter : BoardLocation.possibleLetters) {
-            startState.put(new BoardLocation(String.format("%c2", colLetter)), new Pawn("white"));
-            startState.put(new BoardLocation(String.format("%c7", colLetter)), new Pawn("black"));
+            startState.put(new BoardLocation(String.format("%c2", colLetter)), new Pawn("white", this));
+            startState.put(new BoardLocation(String.format("%c7", colLetter)), new Pawn("black", this));
         }
 
         // rooks
         for (char colLetter : new char[]{'a', 'h'}) {
-            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Rook("white"));
-            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Rook("black"));
+            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Rook("white", this));
+            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Rook("black", this));
         }
 
         // knights
         for (char colLetter : new char[]{'b', 'g'}) {
-            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Knight("white"));
-            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Knight("black"));
+            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Knight("white", this));
+            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Knight("black", this));
         }
 
         // bishops
         for (char colLetter : new char[]{'c', 'f'}) {
-            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Bishop("white"));
-            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Bishop("black"));
+            startState.put(new BoardLocation(String.format("%c1", colLetter)), new Bishop("white", this));
+            startState.put(new BoardLocation(String.format("%c8", colLetter)), new Bishop("black", this));
         }
 
         // queens
-        startState.put(new BoardLocation("d1"), new Queen("white"));
-        startState.put(new BoardLocation("d8"), new Queen("black"));
+        startState.put(new BoardLocation("d1"), new Queen("white", this));
+        startState.put(new BoardLocation("d8"), new Queen("black", this));
 
         // kings
-        startState.put(new BoardLocation("e1"), new King("white"));
-        startState.put(new BoardLocation("e8"), new King("black"));
+        startState.put(new BoardLocation("e1"), new King("white", this));
+        startState.put(new BoardLocation("e8"), new King("black", this));
 
         return startState;
     }
