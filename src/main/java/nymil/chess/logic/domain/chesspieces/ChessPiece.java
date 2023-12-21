@@ -21,7 +21,7 @@ public abstract class ChessPiece {
         this.board = board; // every piece is part of a board
     }
 
-    public abstract Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState);
+    public abstract Set<Move> getPossibleMoves();
     public abstract String toString();
 
     public void setMoved() {

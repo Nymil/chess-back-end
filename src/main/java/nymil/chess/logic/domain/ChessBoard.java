@@ -27,6 +27,18 @@ public class ChessBoard {
         return null;
     }
 
+    public ChessPiece getPiece(BoardLocation location) {
+        return this.state.get(location);
+    }
+
+    public Set<Move> getPossibleMoves(BoardLocation location) {
+        if (!state.containsKey(location)) {
+            throw new ChessExeption("No chess piece at location " + location.toString());
+        }
+
+        return getPiece(location).getPossibleMoves();
+    }
+
     private Map<BoardLocation, ChessPiece> getStartingState() {
         Map<BoardLocation, ChessPiece> startState = new HashMap<>();
 
@@ -63,13 +75,5 @@ public class ChessBoard {
         startState.put(new BoardLocation("e8"), new King("black", this));
 
         return startState;
-    }
-
-    public Set<Move> getPossibleMoves(BoardLocation location) {
-        if (!state.containsKey(location)) {
-            throw new ChessExeption("No chess piece at location " + location.toString());
-        }
-
-        return state.get(location).getPossibleMoves(state);
     }
 }

@@ -14,7 +14,7 @@ public class Queen extends ChessPiece {
     }
 
     @Override
-    public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) {
+    public Set<Move> getPossibleMoves() {
         return null;
     }
 

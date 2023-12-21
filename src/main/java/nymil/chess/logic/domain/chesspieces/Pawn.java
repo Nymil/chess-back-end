@@ -21,7 +21,7 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) {
+    public Set<Move> getPossibleMoves() {
         Set<Move> possibleMoves = new HashSet<>();
 
         int steps = this.hasMoved ? 1 : 2;
