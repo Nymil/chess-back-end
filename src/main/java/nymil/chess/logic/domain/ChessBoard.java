@@ -1,10 +1,9 @@
 package nymil.chess.logic.domain;
 
 import nymil.chess.logic.domain.chesspieces.*;
+import nymil.chess.logic.exeptions.ChessExeption;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class ChessBoard {
     private final Map<BoardLocation, ChessPiece> state;
@@ -53,5 +52,13 @@ public class ChessBoard {
         startState.put(new BoardLocation("e8"), new King("black"));
 
         return startState;
+    }
+
+    public Set<Move> getPossibleMoves(BoardLocation location) {
+        if (!state.containsKey(location)) {
+            throw new ChessExeption("No chess piece at location " + location.toString());
+        }
+
+        return state.get(location).getPossibleMoves(state);
     }
 }

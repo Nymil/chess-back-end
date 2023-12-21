@@ -30,6 +30,6 @@ public class ChessControllerImpl implements ChessController {
 
     @Override
     public Set<Move> getMoves(BoardLocation location, ChessGame game) {
-        return null;
+        return game.getPossibleMoves(location);
     }
 }

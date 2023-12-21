@@ -17,6 +17,7 @@ public class Pawn extends ChessPiece {
         super(color);
     }
 
+    // TODO: does not check if out of bounds
     @Override
     public Set<Move> getPossibleMoves(Map<BoardLocation, ChessPiece> currentBoardState) { // TODO: implement en passant
         Set<Move> possibleMoves = new HashSet<>();

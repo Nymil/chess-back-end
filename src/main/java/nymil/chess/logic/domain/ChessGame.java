@@ -9,6 +9,7 @@ import nymil.chess.logic.exeptions.ChessExeption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class ChessGame {
     public static int NEXT_GAME_ID = 1;
@@ -79,5 +80,9 @@ public class ChessGame {
         this.playerBlack = joiningPlayer;
         this.started = true;
         this.currentPlayer = playerWhite;
+    }
+
+    public Set<Move> getPossibleMoves(BoardLocation location) {
+        return board.getPossibleMoves(location);
     }
 }

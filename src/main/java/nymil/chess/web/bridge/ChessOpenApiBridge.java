@@ -95,7 +95,7 @@ public class ChessOpenApiBridge {
     }
 
     private boolean hasAccessToDetailsOfGame(ChessGame game, String uuid) {
-        return Objects.equals(game.getPlayerWhite().getUuid(), uuid) || Objects.equals(game.getPlayerBlack().getUuid(), uuid);
+        return Objects.equals(game.getPlayerWhite().getUuid(), uuid) || (!Objects.isNull(game.getPlayerBlack()) && Objects.equals(game.getPlayerBlack().getUuid(), uuid));
     }
 
     private void createGame(CreateGameRequest request) {

@@ -31,6 +31,7 @@ public class BoardLocation {
 
     public BoardLocation(int col, int row) {
         if (col < 0 || col > 7 || row < 0 || row > 7) {
+            System.out.println(col + " " + row);
             throw new ChessExeption("invalid location");
         }
 
