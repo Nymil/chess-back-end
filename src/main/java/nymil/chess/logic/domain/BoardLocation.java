@@ -11,6 +11,8 @@ import java.util.Objects;
 
 @JsonSerialize(using = toStringSerializer.class)
 public class BoardLocation {
+    public static final int LOWEST_CELL_VALUE = 0;
+    public static final int HIGHEST_CELL_VALUE = 7;
     private final int col; // zero based
     private final int row; // zero based
     private final String locationString;
@@ -30,8 +32,7 @@ public class BoardLocation {
     }
 
     public BoardLocation(int col, int row) {
-        if (col < 0 || col > 7 || row < 0 || row > 7) {
-            System.out.println(col + " " + row);
+        if (inRange(col, row)) {
             throw new ChessExeption("invalid location");
         }
 
@@ -51,6 +52,11 @@ public class BoardLocation {
 
     private int rowFromLocationString(String locationString) {
         return Integer.parseInt(locationString.substring(1)) - 1;
+    }
+
+    public static boolean inRange(int col, int row) {
+        return col >= LOWEST_CELL_VALUE && col <= HIGHEST_CELL_VALUE &&
+                row >= LOWEST_CELL_VALUE && row <= HIGHEST_CELL_VALUE;
     }
 
     private boolean validLocationString(String locationString) {
