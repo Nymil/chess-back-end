@@ -1,5 +1,6 @@
 package nymil.chess.logic.domain;
 
+import io.vertx.codegen.annotations.Nullable;
 import nymil.chess.logic.domain.chesspieces.*;
 import nymil.chess.logic.exeptions.ChessExeption;
 
@@ -14,6 +15,16 @@ public class ChessBoard {
 
     public Map<BoardLocation, ChessPiece> getState() {
         return state;
+    }
+
+    @Nullable
+    public BoardLocation getLocation(ChessPiece piece) {
+        for (Map.Entry<BoardLocation, ChessPiece> entry : this.state.entrySet()) {
+            if (piece.equals(entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     private Map<BoardLocation, ChessPiece> getStartingState() {
