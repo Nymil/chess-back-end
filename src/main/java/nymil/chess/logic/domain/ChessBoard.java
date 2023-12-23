@@ -39,6 +39,15 @@ public class ChessBoard {
         return getPiece(location).getPossibleMoves();
     }
 
+    public boolean hasPiece(BoardLocation location) {
+        return !Objects.isNull(getPiece(location));
+    }
+
+    public boolean hasPieceOfColor(BoardLocation location, ChessPieceColor color) {
+        ChessPiece piece = getPiece(location);
+        return !Objects.isNull(piece) && piece.getColor().equals(color);
+    }
+
     private Map<BoardLocation, ChessPiece> getStartingState() {
         Map<BoardLocation, ChessPiece> startState = new HashMap<>();
 

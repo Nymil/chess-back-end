@@ -7,22 +7,28 @@ import nymil.chess.logic.domain.Move;
 import nymil.chess.logic.util.toStringSerializer;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 @JsonSerialize(using = toStringSerializer.class)
 public abstract class ChessPiece {
     protected final ChessPieceColor color;
+    protected final ChessPieceColor enemyColor;
     protected boolean hasMoved = false;
     protected ChessBoard board;
 
     public ChessPiece(String color, ChessBoard board) {
         this.color = ChessPieceColor.fromString(color);
+        this.enemyColor = Objects.equals(color, "black") ? ChessPieceColor.WHITE : ChessPieceColor.BLACK;
         this.board = board; // every piece is part of a board
     }
 
     public abstract Set<Move> getPossibleMoves();
     public abstract String toString();
+    public ChessPieceColor getColor() {
+        return color;
+    }
 
     public void setMoved() {
         this.hasMoved = true;
