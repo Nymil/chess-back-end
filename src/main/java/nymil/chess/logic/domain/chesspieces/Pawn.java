@@ -22,14 +22,14 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public Set<Move> getPossibleMoves() { // TODO: moves resulting in check
+    public Set<Move> getPossibleMoves() { // TODO: remove moves resulting in check
         Set<Move> possibleMoves = new HashSet<>();
 
         int steps = hasMoved ? 1 : 2;
-        BoardLocation currentLocation = board.getLocation(this);
+        BoardLocation startLocation = board.getLocation(this);
 
-        int startRow = currentLocation.getCol();
-        int startCol = currentLocation.getRow();
+        int startCol = startLocation.getCol();
+        int startRow = startLocation.getRow();
 
         // straight moves
         for (int walkedDistance = 1; walkedDistance <= steps; walkedDistance++) {
@@ -37,9 +37,9 @@ public class Pawn extends ChessPiece {
             if (!BoardLocation.inRange(startCol, possibleRow)) break;
 
             BoardLocation possibleLocation = new BoardLocation(startCol, possibleRow);
-            if (!board.hasPiece(possibleLocation)) break;
+            if (board.hasPiece(possibleLocation)) break;
 
-            possibleMoves.add(new Move(currentLocation, possibleLocation));
+            possibleMoves.add(new Move(startLocation, possibleLocation));
         }
 
         // diagonal taking moves
@@ -52,7 +52,7 @@ public class Pawn extends ChessPiece {
             // can only take if location has enemy piece
             if (!board.hasPieceOfColor(possibleLocation, enemyColor)) break;
 
-            possibleMoves.add(new Move(currentLocation, possibleLocation));
+            possibleMoves.add(new Move(startLocation, possibleLocation));
         }
 
         return possibleMoves;

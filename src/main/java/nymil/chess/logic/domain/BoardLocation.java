@@ -32,7 +32,7 @@ public class BoardLocation {
     }
 
     public BoardLocation(int col, int row) {
-        if (inRange(col, row)) {
+        if (!inRange(col, row)) {
             throw new ChessExeption("invalid location");
         }
 

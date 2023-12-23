@@ -83,6 +83,10 @@ public class ChessBoard {
         startState.put(new BoardLocation("e1"), new King("white", this));
         startState.put(new BoardLocation("e8"), new King("black", this));
 
+        // testing
+        startState.put(new BoardLocation("a4"), new King("white", this));
+
+
         return startState;
     }
 }
