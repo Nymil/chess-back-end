@@ -67,6 +67,10 @@ public class ChessGame {
         return history;
     }
 
+    public Player getWinner() {
+        return winner;
+    }
+
     public void joinGame(Player joiningPlayer) {
         if (Objects.equals(joiningPlayer.getUserName(), playerWhite.getUserName())) {
             throw new ChessExeption("Cant join a game of player with the same name");

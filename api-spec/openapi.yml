@@ -188,6 +188,9 @@ components:
         playerBlack:
           type: string
           example: "bob"
+        winner:
+          type: string
+          example: Alice
         board:
           type: object
           description: object with keys which are a location (like "a2") and values which are the pieces on that location"

@@ -24,6 +24,7 @@ public class GetGameRequest extends Request {
                 .put("currentPlayer", game.getCurrentPlayer())
                 .put("playerWhite", game.getPlayerWhite())
                 .put("playerBlack", game.getPlayerBlack())
+                .put("winner", game.getWinner())
                 .put("board", game.getBoard().getState())
                 .put("capturedPieces", game.getCapturedPieces())
                 .put("history", game.getHistory());
