@@ -4,8 +4,7 @@ import nymil.chess.logic.domain.BoardLocation;
 import nymil.chess.logic.domain.ChessBoard;
 import nymil.chess.logic.domain.Move;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Bishop extends ChessPiece {
 
@@ -15,11 +14,33 @@ public class Bishop extends ChessPiece {
 
     @Override
     public Set<Move> getPossibleMoves() {
-        return null;
+        List<Map<String, Integer>> directions = getDirections();
+        return new HashSet<>(getStraightLineMoves(directions));
     }
 
     @Override
     public String toString() {
         return color + " bishop";
+    }
+
+    public List<Map<String, Integer>> getDirections() {
+        return Arrays.asList(
+                new HashMap<>() {{
+                    put("colDif", 1);
+                    put("rowDif", 1);
+                }},
+                new HashMap<>() {{
+                    put("colDif", 1);
+                    put("rowDif", -1);
+                }},
+                new HashMap<>() {{
+                    put("colDif", -1);
+                    put("rowDif", -1);
+                }},
+                new HashMap<>() {{
+                    put("colDif", -1);
+                    put("rowDif", 1);
+                }}
+        );
     }
 }
