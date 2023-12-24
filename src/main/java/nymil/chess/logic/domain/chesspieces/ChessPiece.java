@@ -6,10 +6,7 @@ import nymil.chess.logic.domain.ChessBoard;
 import nymil.chess.logic.domain.Move;
 import nymil.chess.logic.util.toStringSerializer;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @JsonSerialize(using = toStringSerializer.class)
 public abstract class ChessPiece {
@@ -24,6 +21,35 @@ public abstract class ChessPiece {
         this.board = board; // every piece is part of a board
     }
 
+    public Set<Move> getStraightLineMoves(List<Map<String, Integer>> directions) { // TODO: moves resulting in a check
+        Set<Move> straightLineMoves = new HashSet<>();
+
+        BoardLocation startingLocation = board.getLocation(this);
+
+        for (Map<String, Integer> direction : directions) {
+            int colDif = direction.get("colDif");
+            int rowDif = direction.get("rowDif");
+
+            int currentCol = startingLocation.getCol() + colDif;
+            int currentRow = startingLocation.getRow() + rowDif;
+
+            while (true) {
+                if (!BoardLocation.inRange(currentCol, currentRow)) break;
+
+                BoardLocation currentLocation = new BoardLocation(currentCol, currentRow);
+
+                if (board.hasPieceOfColor(currentLocation, this.color)) break;
+                straightLineMoves.add(new Move(startingLocation, currentLocation));
+
+                if (board.hasPieceOfColor(currentLocation, enemyColor)) break;
+                currentCol += colDif;
+                currentRow += rowDif;
+            }
+        }
+
+        return straightLineMoves;
+    }
+
     public abstract Set<Move> getPossibleMoves();
     public abstract String toString();
     public ChessPieceColor getColor() {
@@ -32,14 +58,5 @@ public abstract class ChessPiece {
 
     public void setMoved() {
         this.hasMoved = true;
-    }
-
-    public BoardLocation findOwnLocation(Map<BoardLocation, ChessPiece> boardState) {
-        Optional<Map.Entry<BoardLocation, ChessPiece>> entry = boardState.entrySet()
-                .stream()
-                .filter(e -> this.equals(e.getValue()))
-                .findFirst();
-
-        return entry.map(Map.Entry::getKey).orElse(null);
     }
 }

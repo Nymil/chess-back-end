@@ -22,7 +22,7 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public Set<Move> getPossibleMoves() { // TODO: remove moves resulting in check
+    public Set<Move> getPossibleMoves() { // TODO: remove moves resulting in check and en pessant
         Set<Move> possibleMoves = new HashSet<>();
 
         int steps = hasMoved ? 1 : 2;
