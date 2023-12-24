@@ -21,11 +21,12 @@ public class GetGameRequest extends Request {
     public void setGameData(ChessGame game) {
         returnObject.put("gameId", game.getId())
                 .put("started", game.hasStarted())
-                .put("currentPlayer", Objects.isNull(game.getCurrentPlayer()) ? null : game.getCurrentPlayer().getUserName())
-                .put("playerWhite", game.getPlayerWhite().getUserName())
-                .put("playerBlack", Objects.isNull(game.getPlayerBlack()) ? null : game.getPlayerBlack().getUserName())
+                .put("currentPlayer", game.getCurrentPlayer())
+                .put("playerWhite", game.getPlayerWhite())
+                .put("playerBlack", game.getPlayerBlack())
                 .put("board", game.getBoard().getState())
-                .put("capturedPieces", game.getCapturedPieces());
+                .put("capturedPieces", game.getCapturedPieces())
+                .put("history", game.getHistory());
     }
 
     public int getGameId() {

@@ -197,6 +197,20 @@ components:
           items:
             type: string
             example: black rook
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              capturedPiece:
+                type: string
+                example: black knight
+              player:
+                type: string
+                example: Alice
+              move:
+                type: object
+                $ref: "#/components/schemas/move"
     move:
       type: object
       properties:

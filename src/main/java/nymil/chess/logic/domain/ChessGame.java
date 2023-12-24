@@ -21,6 +21,7 @@ public class ChessGame {
     private boolean started = false;
     private Player winner = null;
     private List<ChessPiece> capturedPieces = new ArrayList<>();
+    private List<HistoryPart> history = new ArrayList<>();
 
     @JsonCreator
     public ChessGame(
@@ -61,6 +62,9 @@ public class ChessGame {
 
     public List<ChessPiece> getCapturedPieces() {
         return capturedPieces;
+    }
+    public List<HistoryPart> getHistory() {
+        return history;
     }
 
     public void joinGame(Player joiningPlayer) {
