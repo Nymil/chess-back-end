@@ -50,7 +50,7 @@ public abstract class ChessPiece {
         return straightLineMoves;
     }
 
-    public Set<Move> getMovesFromPossibleMoveCoordDifList(List<Map<String, Integer>> possibleMoveCoordDifs) {
+    public Set<Move> getMovesFromPossibleMoveCoordDifs(List<Map<String, Integer>> possibleMoveCoordDifs) {
         Set<Move> possibleMoves = new HashSet<>();
 
         BoardLocation startingLocation = board.getLocation(this);

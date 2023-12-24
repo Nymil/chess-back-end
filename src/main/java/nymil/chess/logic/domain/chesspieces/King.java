@@ -14,7 +14,7 @@ public class King extends ChessPiece {
     @Override
     public Set<Move> getPossibleMoves() {
         List<Map<String, Integer>> possibleMoveCoordDifs = getPossibleMoveCoordDifs();
-        return new HashSet<>(getMovesFromPossibleMoveCoordDifList(possibleMoveCoordDifs));
+        return new HashSet<>(getMovesFromPossibleMoveCoordDifs(possibleMoveCoordDifs));
     }
 
     @Override
