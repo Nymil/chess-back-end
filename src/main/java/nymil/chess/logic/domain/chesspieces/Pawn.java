@@ -46,11 +46,11 @@ public class Pawn extends ChessPiece {
         int possibleRow = startRow + direction;
         int[] possibleCols = new int[] {startCol - 1, startCol + 1};
         for (int possibleCol : possibleCols) {
-            if (!BoardLocation.inRange(possibleCol, possibleRow)) break;
+            if (!BoardLocation.inRange(possibleCol, possibleRow)) continue; // skip to next possibleCol
 
             BoardLocation possibleLocation = new BoardLocation(possibleCol, possibleRow);
             // can only take if location has enemy piece
-            if (!board.hasPieceOfColor(possibleLocation, enemyColor)) break;
+            if (!board.hasPieceOfColor(possibleLocation, enemyColor)) continue; // skip to next possibleCol
 
             possibleMoves.add(new Move(startLocation, possibleLocation));
         }
