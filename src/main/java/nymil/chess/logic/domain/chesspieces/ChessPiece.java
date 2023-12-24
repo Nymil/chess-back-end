@@ -50,6 +50,25 @@ public abstract class ChessPiece {
         return straightLineMoves;
     }
 
+    public Set<Move> getMovesFromPossibleMoveCoordDifList(List<Map<String, Integer>> possibleMoveCoordDifs) {
+        Set<Move> possibleMoves = new HashSet<>();
+
+        BoardLocation startingLocation = board.getLocation(this);
+
+        for (Map<String, Integer> coordDif : possibleMoveCoordDifs) {
+            int possibleCol = startingLocation.getCol() + coordDif.get("colDif");
+            int possibleRow = startingLocation.getRow() + coordDif.get("rowDif");
+
+            if (!BoardLocation.inRange(possibleCol, possibleRow)) continue;
+            BoardLocation possibleLocation = new BoardLocation(possibleCol, possibleRow);
+
+            if (board.hasPieceOfColor(possibleLocation, this.color)) continue;
+            possibleMoves.add(new Move(startingLocation, possibleLocation));
+        }
+
+        return possibleMoves;
+    }
+
     public abstract Set<Move> getPossibleMoves();
     public abstract String toString();
     public ChessPieceColor getColor() {
